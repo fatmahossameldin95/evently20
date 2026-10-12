@@ -1,0 +1,37 @@
+flutter_native_splash:
+ 
+  # uncomment this if you want to disable this package for specific platform:
+  # android: false
+  # ios: false
+  # web: false
+  
+
+  color: "#F4F7FF" 
+  color_dark: "#000F30"
+ 
+
+ 
+  image: assets/images/spalsh_img.png
+  image_dark: assets/images/splash_dark.png
+  
+  branding: assets/images/logo_img.png
+  branding_dark: assets/images/logo_dark.png
+ 
+
+ 
+  fullscreen: true                # default false
+ 
+  #! ANDROID 12+ configuration:
+  android_12:
+    # background color
+    color: "#F4F7FF" 
+    color_dark: "#000F30"
+
+   
+    image: assets/images/spalsh_img.png
+    image_dark: assets/images/splash_dark.png    
+  
+    icon_background_color: "#111111"
+   
+    branding: assets/images/logo_img.png
+    branding_dark: assets/images/logo_dark.png

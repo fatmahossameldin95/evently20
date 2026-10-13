@@ -1,10 +1,10 @@
 import 'package:evently/app_provider/app_provider.dart';
 import 'package:evently/common/app_text_styles.dart';
 import 'package:evently/common/enums/onboarding_enum.dart';
-import 'package:evently/common/theme/app_colors.dart';
 import 'package:evently/common/widgets/custom_main_button.dart';
 import 'package:evently/gen/assets.gen.dart';
 import 'package:evently/presentation/auth/login/login_screen.dart';
+import 'package:evently/presentation/home/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,73 +28,68 @@ class _OnboardingPageState extends State<OnboardingPage> {
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        leading: currentPage > 0
-            ? IconButton(
-                onPressed: () {
-                  pgController.previousPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Theme.of(context).cardColor,
+      appBar: PreferredSize( preferredSize: const Size.fromHeight(120),
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child:
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                currentPage > 0
+                    ? IconButton(
+                        onPressed: () {
+                          pgController.previousPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Theme.of(context).cardColor,
+                        ),
+                      )
+                    : const SizedBox(width: 40,),
+                Image.asset(
+                    context.watch<AppProvider>().themeMode == ThemeMode.light
+                        ? Assets.images.logo.path
+                        : Assets.images.eventlyDark.path,
+                    width: 140,
+                    height: 200,
+                  ),
+                
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(LoginScreen.routeName);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    backgroundColor: Theme.of(context).splashColor,
+                  ),
+                  child: Text(
+                    "Skip",
+                    style: AppTextStyles.styleS20W500(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
-              )
-            : null,
-            title:  Image.asset(
-                context.watch<AppProvider>().themeMode == ThemeMode.light
-                    ? Assets.images.logo.path
-                    : Assets.images.eventlyDark.path,
-                width: 140,
-                height: 140,
-              ),
-              centerTitle: true,
-              actions: [
-           Padding(
-      padding: const EdgeInsets.only(right: 12),
-      child: OutlinedButton(
-        onPressed: () {
-          Navigator.of(context)
-              .pushReplacementNamed(LoginScreen.routeName);
-        },
-        style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          backgroundColor: Theme.of(context).splashColor,
-        ),
-        child: Text(
-          "Skip",
-          style: AppTextStyles.styleS20W500(
-            color: Theme.of(context).colorScheme.primary,
+              ],
+            ),
           ),
         ),
       ),
-    ),
-          ]
-      ),
-      body: Padding(
+        body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Center(
-            //   child: Image.asset(
-            //     context.watch<AppProvider>().themeMode == ThemeMode.light
-            //         ? Assets.images.logo.path
-            //         : Assets.images.eventlyDark.path,
-            //     width: 140,
-            //     height: 100,
-            //   ),
-            // ),
-            SizedBox(height: 20),
             Expanded(
               child: PageView.builder(
                 controller: pgController,

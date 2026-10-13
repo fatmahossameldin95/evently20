@@ -2,7 +2,12 @@ import 'package:evently/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomMainButton extends StatelessWidget {
-  const CustomMainButton({super.key, required this.isLoading, this.onPressed, required this.label});
+  const CustomMainButton({
+    super.key,
+    required this.isLoading,
+    this.onPressed,
+    required this.label,
+  });
   final bool isLoading;
   final Function()? onPressed;
   final String label;
@@ -16,7 +21,9 @@ class CustomMainButton extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         style: FilledButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
         child: isLoading ? CircularProgressIndicator() : Text(label),
       ),

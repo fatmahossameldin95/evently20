@@ -1,16 +1,17 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart';
 
 class FirebaseAuthService {
   static Future<UserModel?> login(UserModel user) async {
     try {
-      UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: user.email,
-        password: user.password!,
-      );
+      UserCredential credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: user.email,
+            password: user.password!,
+          );
 
       UserModel? userData = await _getUserInfo(credential.user!.uid);
 
@@ -26,10 +27,11 @@ class FirebaseAuthService {
 
   static Future<void> register(UserModel user) async {
     try {
-      UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: user.email,
-        password: user.password!,
-      );
+      UserCredential credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: user.email,
+            password: user.password!,
+          );
       user.id = credential.user?.uid;
       await _createUser(user);
     } on FirebaseAuthException catch (e) {
@@ -41,12 +43,14 @@ class FirebaseAuthService {
     }
   }
 
-  static CollectionReference<UserModel> _getUsersCollection() => FirebaseFirestore.instance
-      .collection('users')
-      .withConverter<UserModel>(
-        fromFirestore: (snapshot, options) => UserModel.fromJson(snapshot.data() ?? {}),
-        toFirestore: (value, options) => value.toJson(),
-      );
+  static CollectionReference<UserModel> _getUsersCollection() =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .withConverter<UserModel>(
+            fromFirestore: (snapshot, options) =>
+                UserModel.fromJson(snapshot.data() ?? {}),
+            toFirestore: (value, options) => value.toJson(),
+          );
 
   static Future _createUser(UserModel user) async {
     CollectionReference<UserModel> collection = _getUsersCollection();
@@ -74,9 +78,33 @@ class FirebaseAuthService {
     }
   }
 
-  //get user info
-  //logout
-  //forgot password
-  //google login
-  //delete account
+  static Future<UserCredential?> loginWithGoogle() async {
+    try {
+
+      if (kIsWeb) {
+      final GoogleAuthProvider googleProvider =
+          GoogleAuthProvider();
+
+      return await FirebaseAuth.instance.signInWithPopup(
+        googleProvider,
+      );
+    }
+
+      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+          .authenticate();
+
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return null;
+      }
+      rethrow;
+    }
+  }
 }

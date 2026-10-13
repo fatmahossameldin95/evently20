@@ -39,18 +39,19 @@ enum CategoriesEnum {
     return CategoriesEnum.birthDays;
   }
 
-  String get getImage {
+  String getImage (ThemeMode themeMode) {
+    final isDark = themeMode == ThemeMode.dark;
     switch (this) {
       case CategoriesEnum.birthDays:
-        return Assets.images.birthday.path;
+        return isDark ? Assets.images.birthdayDark.path : Assets.images.birthday.path;
       case CategoriesEnum.books:
-        return Assets.images.bookClub.path;
+        return isDark ? Assets.images.bookClubDark.path : Assets.images.bookClub.path;
 
       case CategoriesEnum.sports:
-        return Assets.images.sports.path;
+        return isDark ? Assets.images.sportDark.path : Assets.images.sports.path;
 
       case CategoriesEnum.exhibition:
-        return Assets.images.exhibition.path;
+        return isDark ? Assets.images.exhibitionDark.path : Assets.images.exhibition.path;
     }
   }
 

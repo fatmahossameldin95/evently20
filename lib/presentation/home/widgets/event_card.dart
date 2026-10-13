@@ -1,3 +1,4 @@
+import 'package:evently/app_provider/app_provider.dart';
 import 'package:evently/common/app_text_styles.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/presentation/home/tabs/home_tab/home_tab_provider/home_tab_provider.dart';
@@ -21,7 +22,7 @@ class EventCard extends StatelessWidget {
         border: Border.all(color: Theme.of(context).colorScheme.primary),
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
-          image: AssetImage(eventModel.categoriesEnum.getImage),
+          image: AssetImage(eventModel.categoriesEnum.getImage(context.watch<AppProvider>().themeMode)),
           fit: BoxFit.cover,
         ),
       ),

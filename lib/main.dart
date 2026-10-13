@@ -1,5 +1,6 @@
 import 'package:evently/app_provider/app_provider.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/presentation/auth/login/forgot_password.dart';
 import 'package:evently/presentation/auth/login/login_screen.dart';
 import 'package:evently/presentation/auth/register/register_screen.dart';
 import 'package:evently/firebase_options.dart';
@@ -13,11 +14,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (!kIsWeb) {
+    await GoogleSignIn.instance.initialize();
+  }
   runApp(const MyApp());
 }
 
@@ -57,6 +62,7 @@ class MyApp extends StatelessWidget {
               NewEventScreen.routeName: (_) => NewEventScreen(),
               LandingPage.routeName: (_) => LandingPage(),
               OnboardingPage.routeName: (_) => OnboardingPage(),
+              ForgotPassword.routeName: (_) => ForgotPassword(),
             },
             // initialRoute: isLoggedIn()
             //     ? HomeScreen.routeName

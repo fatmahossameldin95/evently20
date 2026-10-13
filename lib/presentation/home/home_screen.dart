@@ -3,7 +3,7 @@ import 'package:evently/presentation/home/tabs/home_tab/home_tab.dart';
 import 'package:evently/presentation/home/tabs/home_tab/home_tab_provider/home_tab_provider.dart';
 
 import 'package:evently/presentation/home/tabs/profile_tab/profile_tab.dart';
-import 'package:evently/presentation/home/widgets/home_header.dart';
+
 import 'package:evently/presentation/new_event/new_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

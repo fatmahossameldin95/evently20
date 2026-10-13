@@ -69,7 +69,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     backgroundColor: Theme.of(context).splashColor,
                   ),
@@ -86,7 +86,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
       ),
         body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

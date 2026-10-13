@@ -1,3 +1,4 @@
+import 'package:evently/app_provider/app_provider.dart';
 import 'package:evently/common/enums/categories_enum.dart';
 import 'package:evently/presentation/home/widgets/category_card.dart';
 import 'package:evently/presentation/new_event/provider/new_event_provider.dart';
@@ -18,7 +19,7 @@ class CategoriesSection extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
-                value.getImage,
+                value.getImage(context.watch<AppProvider>().themeMode),
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,

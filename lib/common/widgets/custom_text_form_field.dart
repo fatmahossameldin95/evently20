@@ -51,15 +51,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             style: Theme.of(context).textTheme.labelMedium,
             obscureText: passwordEnabled,
             validator: widget.validator,
+        
+            decoration: InputDecoration(
             
-            decoration: InputDecoration(filled: true,
+              filled: true,
               fillColor: Theme.of(context).splashColor,
               hintStyle: AppTextStyles.styleS16W500(
                 color: Theme.of(context).hintColor,
               ),
               hintText: widget.hintText,
               labelText: widget.label,
-              contentPadding: EdgeInsets.all(2),
+              contentPadding: EdgeInsets.all(16),
               labelStyle: AppTextStyles.styleS16W500(
                 color: Theme.of(context).hoverColor,
               ),
@@ -74,7 +76,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         ),
                       ),
                     )
-                  : null,
+                  :  null,
               suffixIcon: widget.isPassword
                   ? InkWell(
                       onTap: () {
@@ -83,8 +85,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       },
                       child: Icon(
                         passwordEnabled
-                            ? Icons.visibility_off
-                            : Icons.remove_red_eye,
+                            ? Icons.visibility_off_outlined
+                            : Icons.remove_red_eye_outlined,
                         color: Theme.of(context).hoverColor,
                       ),
                     )

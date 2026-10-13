@@ -1,4 +1,5 @@
 import 'package:evently/common/widgets/custom_main_button.dart';
+import 'package:evently/presentation/auth/login/forgot_password.dart';
 import 'package:evently/presentation/auth/register/register_screen.dart';
 import 'package:evently/common/app_text_styles.dart';
 import 'package:evently/common/widgets/custom_text_form_field.dart';
@@ -7,8 +8,10 @@ import 'package:evently/models/user_model.dart';
 import 'package:evently/presentation/home/home_screen.dart';
 import 'package:evently/services/firebase_auth_service.dart';
 import 'package:evently/common/theme/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
+  bool isGoogleLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(
+                            context,
+                          ).pushNamed(ForgotPassword.routeName);
+                        },
                         child: Text(
                           "Forget Password?",
                           style:
@@ -210,14 +218,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 58,
                     child: OutlinedButton.icon(
-                      icon: Image.asset(
-                        Assets.icons.google.path,
-                        width: 25,
-                        height: 25,
-                      ),
-                      onPressed: () {},
+                      icon: isGoogleLoading
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Image.asset(
+                              Assets.icons.google.path,
+                              width: 25,
+                              height: 25,
+                            ),
+                      onPressed: isGoogleLoading ? null : _loginWithGoogle,
                       label: Text(
-                        "Login With Google",
+                        isGoogleLoading
+                            ? "Please wait..."
+                            : "Login With Google",
+
                         style: AppTextStyles.styleS20W500(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -242,7 +259,47 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  //  void onRegister(){
+  Future<void> _loginWithGoogle() async {
+    setState(() {
+      isGoogleLoading = true;
+    });
 
-  //   }
+    try {
+      final userCredential = await FirebaseAuthService.loginWithGoogle();
+
+      if (!mounted) return;
+
+      if (userCredential != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Successfully logged in with Google!')),
+        );
+
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? 'Google login failed.'),
+          backgroundColor: AppColors.errorColor,
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Google login failed: $e'),
+          backgroundColor: AppColors.errorColor,
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isGoogleLoading = false;
+        });
+      }
+    }
+  }
 }

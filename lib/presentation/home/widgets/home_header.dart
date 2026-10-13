@@ -47,23 +47,11 @@ class _HomeHeaderState extends State<HomeHeader> {
                     Text(
                       "name",
                       style: theme.textTheme.displayLarge!.copyWith(
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 24,
                       ),
                     ),
-                    Row(
-                      spacing: 5,
-                      children: [
-                        Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor, size: 20),
-                        Text(
-                          "address",
-                          style: theme.textTheme.titleMedium!.copyWith(
-                            color: Theme.of(context).hintColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
+                   
                   ],
                 ),
                 Spacer(),
@@ -79,7 +67,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       context.watch<AppProvider>().themeMode == ThemeMode.light
                           ? Icons.nightlight_outlined
                           : Icons.wb_sunny_outlined,
-                      color: AppColors.lightBgColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),

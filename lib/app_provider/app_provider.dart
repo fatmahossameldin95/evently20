@@ -13,11 +13,25 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  changeThemeWithMode(ThemeMode mode) {
+    if (themeMode != mode) {
+      themeMode = mode;
+    }
+    notifyListeners();
+  }
+
   changeLocal() {
     if (local == 'en') {
       local = ('ar');
     } else {
       local = ('en');
+    }
+    notifyListeners();
+  }
+
+  changeLocalWithCode(String code) {
+    if (local != (code)) {
+      local = (code);
     }
     notifyListeners();
   }

@@ -6,6 +6,8 @@ import 'package:evently/firebase_options.dart';
 import 'package:evently/presentation/home/home_screen.dart';
 import 'package:evently/presentation/new_event/new_event_screen.dart';
 import 'package:evently/common/theme/app_theme.dart';
+import 'package:evently/presentation/onboarding/landing_page.dart';
+import 'package:evently/presentation/onboarding/onboarding_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +55,13 @@ class MyApp extends StatelessWidget {
               RegisterScreen.routeName: (_) => RegisterScreen(),
               HomeScreen.routeName: (_) => HomeScreen(),
               NewEventScreen.routeName: (_) => NewEventScreen(),
+              LandingPage.routeName: (_) => LandingPage(),
+              OnboardingPage.routeName: (_) => OnboardingPage(),
             },
-            initialRoute: isLoggedIn()
-                ? HomeScreen.routeName
-                : LoginScreen.routeName,
+            // initialRoute: isLoggedIn()
+            //     ? HomeScreen.routeName
+            //     : LoginScreen.routeName,
+            home:LandingPage()
           );
         },
       ),

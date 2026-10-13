@@ -24,13 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return ChangeNotifierProvider(
       create: (context) => EventsProvider(),
       child: Scaffold(
-        appBar: HomeHeader(),
         body: tabs()[currantTabIndex],
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           elevation: 0,
 
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).cardColor,
           onPressed: () async {
             var data = await Navigator.pushNamed(
               context,
@@ -44,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Icon(Icons.add, color: Colors.white),
         ),
         bottomNavigationBar: BottomNavigationBar(
-         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           selectedItemColor: Theme.of(context).cardColor,
           unselectedItemColor: Theme.of(context).hintColor,
           currentIndex: currantTabIndex,

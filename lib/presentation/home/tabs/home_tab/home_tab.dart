@@ -2,6 +2,7 @@ import 'package:evently/common/enums/categories_enum.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/presentation/home/tabs/home_tab/home_tab_provider/home_tab_provider.dart';
 import 'package:evently/presentation/home/widgets/event_card.dart';
+import 'package:evently/presentation/home/widgets/home_header.dart';
 import 'package:evently/services/events_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +22,11 @@ class HomeTab extends StatelessWidget {
     }
 
     List<EventModel> events = provider.events;
-    return ListView.builder(
+    return Scaffold(
+        appBar: HomeHeader(),
+        body:ListView.builder(
       itemCount: events.length,
       itemBuilder: (context, index) => EventCard(eventModel: events[index]),
-    );
+    ));
   }
 }

@@ -35,7 +35,7 @@ class CategoryCard extends StatelessWidget {
           children: [
             Icon(
               isAllCategories ? Icons.explore_outlined : categoriesEnum?.getIcon,
-              color: isSelected
+              color: !isSelected
                   ? isWhite
                         ? theme.cardColor
                         : AppColors.lightBgColor
@@ -48,7 +48,7 @@ class CategoryCard extends StatelessWidget {
                   ? AppLocalizations.of(context)!.all
                   : categoriesEnum?.getTitle(context) ?? "",
               style: AppTextStyles.styleS16W500(
-                color: isSelected
+                color: !isSelected
                     ? isWhite
                           ? theme.cardColor
                           : AppColors.lightBgColor
@@ -61,11 +61,11 @@ class CategoryCard extends StatelessWidget {
         ),
         selected: isSelected,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: isWhite ? theme.shadowColor : theme.cardColor),
+          side: BorderSide(color: !isWhite ? theme.shadowColor : theme.cardColor),
           borderRadius: BorderRadius.circular(46),
         ),
-        selectedColor: isWhite ? theme.shadowColor : theme.cardColor,
-        backgroundColor: isWhite ? theme.cardColor : theme.scaffoldBackgroundColor,
+        selectedColor: !isWhite ? theme.shadowColor : theme.cardColor,
+        backgroundColor: !isWhite ? theme.cardColor : theme.scaffoldBackgroundColor,
         showCheckmark: false,
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:evently/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -5,6 +6,13 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          Center(child: Image.asset(Assets.images.route.path, width: 110, height: 110)),
+          SizedBox(height: 20),
+        ],
+      ),
+    );
   }
 }

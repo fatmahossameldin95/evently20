@@ -53,6 +53,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/Logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/Logo.png');
 
+  /// File path: assets/images/being-creative-dark.png
+  AssetGenImage get beingCreativeDark =>
+      const AssetGenImage('assets/images/being-creative-dark.png');
+
+  /// File path: assets/images/being-creative.png
+  AssetGenImage get beingCreative =>
+      const AssetGenImage('assets/images/being-creative.png');
+
   /// File path: assets/images/birthday.png
   AssetGenImage get birthday =>
       const AssetGenImage('assets/images/birthday.png');
@@ -69,9 +77,31 @@ class $AssetsImagesGen {
   AssetGenImage get bookClubDark =>
       const AssetGenImage('assets/images/book_club_dark.png');
 
+  /// File path: assets/images/change-setting-dark.png
+  AssetGenImage get changeSettingDark =>
+      const AssetGenImage('assets/images/change-setting-dark.png');
+
+  /// File path: assets/images/change-setting.png
+  AssetGenImage get changeSetting =>
+      const AssetGenImage('assets/images/change-setting.png');
+
+  /// File path: assets/images/connect-dark.png
+  AssetGenImage get connectDark =>
+      const AssetGenImage('assets/images/connect-dark.png');
+
+  /// File path: assets/images/connect.png
+  AssetGenImage get connect => const AssetGenImage('assets/images/connect.png');
+
   /// File path: assets/images/evently_dark.png
   AssetGenImage get eventlyDark =>
       const AssetGenImage('assets/images/evently_dark.png');
+
+  /// File path: assets/images/events-dark.png
+  AssetGenImage get eventsDark =>
+      const AssetGenImage('assets/images/events-dark.png');
+
+  /// File path: assets/images/events.png
+  AssetGenImage get events => const AssetGenImage('assets/images/events.png');
 
   /// File path: assets/images/exhibition.png
   AssetGenImage get exhibition =>
@@ -92,12 +122,22 @@ class $AssetsImagesGen {
   AssetGenImage get logoImg =>
       const AssetGenImage('assets/images/logo_img.png');
 
+  /// File path: assets/images/manage-dark.png
+  AssetGenImage get manageDark =>
+      const AssetGenImage('assets/images/manage-dark.png');
+
+  /// File path: assets/images/manage.png
+  AssetGenImage get manage => const AssetGenImage('assets/images/manage.png');
+
   /// File path: assets/images/meeting.png
   AssetGenImage get meeting => const AssetGenImage('assets/images/meeting.png');
 
   /// File path: assets/images/meeting_dark.png
   AssetGenImage get meetingDark =>
       const AssetGenImage('assets/images/meeting_dark.png');
+
+  /// File path: assets/images/route.png
+  AssetGenImage get route => const AssetGenImage('assets/images/route.png');
 
   /// File path: assets/images/spalsh_img.png
   AssetGenImage get spalshImg =>
@@ -117,18 +157,29 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     logo,
+    beingCreativeDark,
+    beingCreative,
     birthday,
     birthdayDark,
     bookClub,
     bookClubDark,
+    changeSettingDark,
+    changeSetting,
+    connectDark,
+    connect,
     eventlyDark,
+    eventsDark,
+    events,
     exhibition,
     exhibitionDark,
     gamming,
     logoDark,
     logoImg,
+    manageDark,
+    manage,
     meeting,
     meetingDark,
+    route,
     spalshImg,
     splashDark,
     sportDark,

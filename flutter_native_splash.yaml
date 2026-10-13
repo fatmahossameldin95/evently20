@@ -17,7 +17,7 @@ flutter_native_splash:
   branding: assets/images/logo_img.png
   branding_dark: assets/images/logo_dark.png
  
-
+  web: true
  
   fullscreen: true                # default false
  

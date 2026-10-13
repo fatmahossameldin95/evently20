@@ -25,7 +25,9 @@ class LandingPage extends StatelessWidget {
             children: [
               Center(
                 child: Image.asset(
-                  Assets.images.logo.path,
+                  context.watch<AppProvider>().themeMode == ThemeMode.light
+                      ? Assets.images.logo.path
+                      : Assets.images.eventlyDark.path,
                   width: 140,
                   height: 100,
                 ),
@@ -84,7 +86,10 @@ class LandingPage extends StatelessWidget {
                 isLoading: isLoading,
                 label: "Let's start",
                 onPressed: () {
-                   Navigator.pushReplacementNamed(context, OnboardingPage.routeName);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    OnboardingPage.routeName,
+                  );
                 },
               ),
             ],

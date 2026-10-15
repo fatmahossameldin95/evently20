@@ -1,3 +1,4 @@
+import 'package:evently/common/app_text_styles.dart';
 import 'package:evently/common/widgets/custom_main_button.dart';
 import 'package:evently/common/widgets/custom_text_form_field.dart';
 import 'package:evently/common/widgets/snack_bar_widget.dart';
@@ -28,11 +29,28 @@ class _NewEventScreenState extends State<NewEventScreen> {
       create: (context) => NewEventProvider(),
       child: Builder(
         builder: (ctx) {
-          NewEventProvider provider = Provider.of<NewEventProvider>(ctx, listen: true);
-          NewEventProvider provider2 = Provider.of<NewEventProvider>(ctx, listen: false);
+          NewEventProvider provider = Provider.of<NewEventProvider>(
+            ctx,
+            listen: true,
+          );
+          NewEventProvider provider2 = Provider.of<NewEventProvider>(
+            ctx,
+            listen: false,
+          );
 
           return Scaffold(
-            appBar: AppBar(title: Text("Create Event")),
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () => Navigator.pop(context),
+              ),
+              title: Text(
+                "Create Event",
+                style: AppTextStyles.styleS20W500(
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+              ),
+            ),
             body: Form(
               key: _formKey,
               child: ListView(
@@ -64,7 +82,9 @@ class _NewEventScreenState extends State<NewEventScreen> {
                       Icon(Icons.date_range),
                       Text(
                         "Event Date",
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleSmall!.copyWith(fontSize: 16),
                       ),
                       Spacer(),
                       TextButton(
@@ -81,12 +101,15 @@ class _NewEventScreenState extends State<NewEventScreen> {
                         },
                         child: Text(
                           provider.eventSelectedDate != null
-                              ? DateFormat.yMd().format(provider.eventSelectedDate!)
+                              ? DateFormat.yMd().format(
+                                  provider.eventSelectedDate!,
+                                )
                               : ("Choose Date").toString(),
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall!
+                              .copyWith(
+                                fontSize: 16,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ),
                     ],
@@ -97,25 +120,31 @@ class _NewEventScreenState extends State<NewEventScreen> {
                       Icon(Icons.watch_later_outlined),
                       Text(
                         "Event Time",
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleSmall!.copyWith(fontSize: 16),
                       ),
                       Spacer(),
                       TextButton(
                         onPressed: () async {
                           TimeOfDay? selectedTime = await showTimePicker(
                             context: context,
-                            initialTime: provider2.eventSelectedTime ?? TimeOfDay.now(),
+                            initialTime:
+                                provider2.eventSelectedTime ?? TimeOfDay.now(),
                           );
                           if (selectedTime != null) {
                             provider2.changeTime(selectedTime);
                           }
                         },
                         child: Text(
-                          (provider.eventSelectedTime?.format(context) ?? "Choose Time").toString(),
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          (provider.eventSelectedTime?.format(context) ??
+                                  "Choose Time")
+                              .toString(),
+                          style: Theme.of(context).textTheme.titleSmall!
+                              .copyWith(
+                                fontSize: 16,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ),
                     ],
@@ -127,11 +156,17 @@ class _NewEventScreenState extends State<NewEventScreen> {
                       bool formState = _formKey.currentState!.validate();
                       if (formState) {
                         if (provider2.eventSelectedDate == null) {
-                          SnackBarHelper.errorSnackBar(context, "Date is Required!!");
+                          SnackBarHelper.errorSnackBar(
+                            context,
+                            "Date is Required!!",
+                          );
                           return;
                         }
                         if (provider2.eventSelectedTime == null) {
-                          SnackBarHelper.errorSnackBar(context, "Time is Required!!");
+                          SnackBarHelper.errorSnackBar(
+                            context,
+                            "Time is Required!!",
+                          );
                           return;
                         }
 
@@ -146,7 +181,10 @@ class _NewEventScreenState extends State<NewEventScreen> {
                           );
                           await EventsService.addEvent(eventModel);
                           if (context.mounted) {
-                            SnackBarHelper.successSnackBar(context, "event was added!!");
+                            SnackBarHelper.successSnackBar(
+                              context,
+                              "event was added!!",
+                            );
                             Navigator.pop(context, true);
                           }
                         } on Exception catch (e) {

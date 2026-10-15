@@ -9,7 +9,7 @@ class AppTheme {
     hintColor: AppColors.lightSecTextColor,
     dividerColor: AppColors.lightSecTextColor,
     cardColor: AppColors.lightMainColor,
-    hoverColor: AppColors.lightSecTextColor,
+    // hoverColor: AppColors.lightSecTextColor,
     shadowColor: AppColors.lightBgColor,
     scaffoldBackgroundColor: AppColors.lightBgColor,
     appBarTheme: AppBarTheme(
@@ -56,7 +56,7 @@ class AppTheme {
     hintColor: AppColors.darkSecTextColor,
     dividerColor: AppColors.darkSecTextColor,
     cardColor: AppColors.darkMainColor,
-    hoverColor: AppColors.darkSecTextColor,
+    // hoverColor: AppColors.darkSecTextColor,
     shadowColor: AppColors.darkBgColor,
     scaffoldBackgroundColor: AppColors.darkBgColor,
 

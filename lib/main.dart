@@ -9,6 +9,7 @@ import 'package:evently/presentation/new_event/new_event_screen.dart';
 import 'package:evently/common/theme/app_theme.dart';
 import 'package:evently/presentation/onboarding/landing_page.dart';
 import 'package:evently/presentation/onboarding/onboarding_page.dart';
+import 'package:evently/presentation/view_event/view_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
               LandingPage.routeName: (_) => LandingPage(),
               OnboardingPage.routeName: (_) => OnboardingPage(),
               ForgotPassword.routeName: (_) => ForgotPassword(),
+             
             },
             // initialRoute: isLoggedIn()
             //     ? HomeScreen.routeName

@@ -80,15 +80,11 @@ class FirebaseAuthService {
 
   static Future<UserCredential?> loginWithGoogle() async {
     try {
-
       if (kIsWeb) {
-      final GoogleAuthProvider googleProvider =
-          GoogleAuthProvider();
+        final GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
-      return await FirebaseAuth.instance.signInWithPopup(
-        googleProvider,
-      );
-    }
+        return await FirebaseAuth.instance.signInWithPopup(googleProvider);
+      }
 
       final GoogleSignInAccount googleUser = await GoogleSignIn.instance
           .authenticate();
@@ -100,6 +96,33 @@ class FirebaseAuthService {
       );
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return null;
+      }
+      rethrow;
+    }
+  }
+
+  static Future<UserCredential?> signUpWithGoogle() async {
+    try {
+      if (kIsWeb) {
+        return await FirebaseAuth.instance.signInWithPopup(
+          GoogleAuthProvider(),
+        );
+      }
+
+      final googleUser = await GoogleSignIn.instance.authenticate();
+
+      final googleAuth = googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on FirebaseAuthException {
+      rethrow;
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
         return null;

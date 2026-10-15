@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class EventsService {
   static CollectionReference<EventModel> _getEventsCollection() {
     CollectionReference<EventModel> collection = FirebaseFirestore.instance
         .collection("events")
         .withConverter(
-          fromFirestore: (snapshot, options) => EventModel.fromJson(snapshot.data() ?? {}),
+          fromFirestore: (snapshot, options) =>
+              EventModel.fromJson(snapshot.data() ?? {}),
           toFirestore: (value, options) => value.toJson(),
         );
     return collection;
@@ -47,18 +49,42 @@ class EventsService {
   static Future<List<EventModel>> getAllFav() async {
     CollectionReference<EventModel> collection = _getEventsCollection();
     QuerySnapshot<EventModel> snapshot = await collection
-        .where("favorites", arrayContains: FirebaseAuth.instance.currentUser?.uid)
+        .where(
+          "favorites",
+          arrayContains: FirebaseAuth.instance.currentUser?.uid,
+        )
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
   }
 
-  //add event
+  static Future<void> editEvent(EventModel event) async {
+    try {
+      if (event.id == null || event.id!.isEmpty) {
+        throw Exception('Event ID is required for editing');
+      }
 
-  //delete event
+      final CollectionReference<EventModel> collection = _getEventsCollection();
 
-  //get all events
+      final DocumentReference<EventModel> doc = collection.doc(event.id);
 
-  //get fav events
+      await doc.set(event, SetOptions(merge: true));
+    } catch (e) {
+      debugPrint('EDIT EVENT ERROR --> $e');
+      throw Exception('Something went wrong while editing the event');
+    }
+  }
 
-  //add/remove from fav
+  static Future<void> deleteEvent(String eventId) async {
+    try {
+      if (eventId.trim().isEmpty) {
+        throw Exception('Event ID is required');
+      }
+
+      final collection = _getEventsCollection();
+      await collection.doc(eventId).delete();
+    } catch (e) {
+      debugPrint('DELETE EVENT ERROR --> $e');
+      rethrow;
+    }
+  }
 }

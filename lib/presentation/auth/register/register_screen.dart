@@ -5,6 +5,7 @@ import 'package:evently/models/user_model.dart';
 import 'package:evently/presentation/auth/login/login_screen.dart';
 import 'package:evently/services/firebase_auth_service.dart';
 import 'package:evently/common/theme/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -232,7 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: 25,
                         height: 25,
                       ),
-                      onPressed: () {},
+                      onPressed: _signUpWithGoogle,
                       label: Text(
                         "Sign up With Google",
                         style: AppTextStyles.styleS20W500(
@@ -257,5 +258,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _signUpWithGoogle() async {
+    try {
+      final userCredential = await FirebaseAuthService.signUpWithGoogle();
+
+      if (!mounted || userCredential == null) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Google sign-up successful!')),
+      );
+
+      Navigator.of(
+        context,
+      ).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? 'Google sign-up failed.')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Google sign-up failed: $e')));
+    }
   }
 }

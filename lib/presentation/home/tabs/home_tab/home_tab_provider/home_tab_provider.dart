@@ -14,6 +14,12 @@ class EventsProvider extends ChangeNotifier {
   bool isLoadingFav = false;
   String? errorMessageFav;
 
+
+// void addEventToList(EventModel event) {
+//   events.insert(0, event);
+//   notifyListeners();
+// }
+
   Future<void> getFavEvent() async {
     isLoadingFav = true;
     notifyListeners();

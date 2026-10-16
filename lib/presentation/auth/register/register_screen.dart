@@ -196,7 +196,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context,
                               ).pushReplacementNamed(LoginScreen.routeName);
                             },
-                          //TODO:ontap
                         ),
                       ],
                       style: Theme.of(

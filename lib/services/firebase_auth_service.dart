@@ -33,6 +33,7 @@ class FirebaseAuthService {
             password: user.password!,
           );
       user.id = credential.user?.uid;
+      
       await _createUser(user);
     } on FirebaseAuthException catch (e) {
       String errorMessage = _getFriendlyMessage(e.code);

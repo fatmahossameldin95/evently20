@@ -4,6 +4,7 @@ import 'package:evently/common/widgets/custom_text_form_field.dart';
 import 'package:evently/common/widgets/snack_bar_widget.dart';
 import 'package:evently/gen/assets.gen.dart';
 import 'package:evently/models/event_model.dart';
+import 'package:evently/presentation/home/tabs/home_tab/home_tab_provider/home_tab_provider.dart';
 import 'package:evently/presentation/new_event/provider/new_event_provider.dart';
 import 'package:evently/presentation/new_event/widgets/categories_section.dart';
 import 'package:evently/services/events_service.dart';

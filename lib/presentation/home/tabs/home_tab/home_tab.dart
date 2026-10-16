@@ -23,10 +23,35 @@ class HomeTab extends StatelessWidget {
 
     List<EventModel> events = provider.events;
     return Scaffold(
-        appBar: HomeHeader(),
-        body:ListView.builder(
-      itemCount: events.length,
-      itemBuilder: (context, index) => EventCard(eventModel: events[index]),
-    ));
+      appBar: HomeHeader(),
+      body: ListView.builder(
+        itemCount: events.length,
+        itemBuilder: (context, index) => EventCard(eventModel: events[index]),
+      ),
+    );
   }
 }
+
+// return FutureBuilder(
+//       future: EventsService.getAllEvent(),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Center(child: CircularProgressIndicator());
+//         }
+//         if (snapshot.hasError) {
+//           return Center(child: Text(snapshot.error.toString()));
+//         }
+//         List<EventModel> events = snapshot.data ?? [];
+
+//         return Scaffold(
+//           appBar: HomeHeader(),
+//           body: Expanded(
+//             child: ListView.builder(
+//               itemCount: events.length,
+//               itemBuilder: (context, index) =>
+//                   EventCard(eventModel: events[index]),
+//             ),
+//           ),
+//         );
+//       },
+//     );

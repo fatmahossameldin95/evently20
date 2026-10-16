@@ -63,7 +63,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               labelText: widget.label,
               contentPadding: EdgeInsets.all(16),
               labelStyle: AppTextStyles.styleS16W500(
-                color: Theme.of(context).hoverColor,
+                color: Theme.of(context).hintColor,
               ),
               prefixIcon: widget.prefixIcon != null
                   ? Padding(
@@ -71,7 +71,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       child: SvgPicture.asset(
                         widget.prefixIcon!,
                         colorFilter: ColorFilter.mode(
-                          Theme.of(context).hoverColor,
+                          Theme.of(context).hintColor,
                           BlendMode.srcIn,
                         ),
                       ),
@@ -87,7 +87,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         passwordEnabled
                             ? Icons.visibility_off_outlined
                             : Icons.remove_red_eye_outlined,
-                        color: Theme.of(context).hoverColor,
+                        color: Theme.of(context).hintColor,
                       ),
                     )
                   : null,

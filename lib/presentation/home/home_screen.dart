@@ -23,58 +23,63 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => EventsProvider(),
-      child: Scaffold(
-        body: tabs()[currantTabIndex],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          elevation: 0,
+      child: Consumer<EventsProvider>(
+        builder: (context, provider, _) => Scaffold(
+          body: tabs()[currantTabIndex],
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+            elevation: 0,
 
-          backgroundColor: Theme.of(context).cardColor,
-          onPressed: () async {
-            var data = await Navigator.pushNamed(
-              context,
-              NewEventScreen.routeName,
-            );
-            if (data == true) {
-              setState(() {});
-            }
-          },
-          shape: CircleBorder(side: BorderSide(color: Colors.white, width: 5)),
-          child: Icon(Icons.add, color: Colors.white),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          selectedItemColor: Theme.of(context).cardColor,
-          unselectedItemColor: Theme.of(context).hintColor,
-          currentIndex: currantTabIndex,
-          onTap: (value) {
-            setState(() {
-              currantTabIndex = value;
-            });
-          },
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: "home",
+            backgroundColor: Theme.of(context).cardColor,
+            onPressed: () async {
+              var data = await Navigator.pushNamed(
+                context,
+                NewEventScreen.routeName,
+              );
+              if (data == true) {
+                provider.getEvents();
+                //setState(() {});
+              }
+            },
+            shape: CircleBorder(
+              side: BorderSide(color: Colors.white, width: 5),
             ),
+            child: Icon(Icons.add, color: Colors.white),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            selectedItemColor: Theme.of(context).cardColor,
+            unselectedItemColor: Theme.of(context).hintColor,
+            currentIndex: currantTabIndex,
+            onTap: (value) {
+              setState(() {
+                provider.getEvents();
 
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              activeIcon: Icon(Icons.favorite),
-              label: "fav",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              activeIcon: Icon(Icons.person_2),
-              label: "profile",
-            ),
-          ],
+                currantTabIndex = value;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home),
+                label: "home",
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                activeIcon: Icon(Icons.favorite),
+                label: "fav",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_2_outlined),
+                activeIcon: Icon(Icons.person_2),
+                label: "profile",
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-//shared prefrance || cashing
-//firebase

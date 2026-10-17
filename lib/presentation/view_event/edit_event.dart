@@ -4,6 +4,7 @@ import 'package:evently/common/widgets/custom_text_form_field.dart';
 import 'package:evently/common/widgets/snack_bar_widget.dart';
 import 'package:evently/gen/assets.gen.dart';
 import 'package:evently/models/event_model.dart';
+import 'package:evently/presentation/home/home_screen.dart';
 import 'package:evently/presentation/new_event/provider/new_event_provider.dart';
 import 'package:evently/presentation/new_event/widgets/categories_section.dart';
 import 'package:evently/services/events_service.dart';
@@ -217,7 +218,8 @@ class _EditEventState extends State<EditEvent> {
                               context,
                               "event was updated!!",
                             );
-                            Navigator.pop(context, true);
+                            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+
                           }
                         } on Exception catch (e) {
                           if (context.mounted) {

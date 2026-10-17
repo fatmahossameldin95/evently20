@@ -3,6 +3,7 @@ import 'package:evently/common/app_text_styles.dart';
 import 'package:evently/common/theme/app_colors.dart';
 
 import 'package:evently/models/event_model.dart';
+import 'package:evently/presentation/home/home_screen.dart';
 import 'package:evently/presentation/view_event/edit_event.dart';
 import 'package:evently/services/events_service.dart';
 
@@ -40,81 +41,74 @@ class ViewEvent extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => EditEvent(eventModel: eventModel),
                   ),
+                  
                 );
               },
               icon: Icon(Icons.edit),
             ),
           ),
           SizedBox(width: 10),
-         IconButton(
-  icon: Icon(
-    Icons.delete,
-    color: AppColors.errorColor,
-  ),
-  onPressed: () async {
-    // Ask for confirmation
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text('Delete Event'),
-          content: const Text(
-            'Are you sure you want to delete this event?',
+          IconButton(
+            icon: Icon(Icons.delete, color: AppColors.errorColor),
+            onPressed: () async {
+              // Ask for confirmation
+              final confirmed = await showDialog<bool>(
+                context: context,
+                builder: (dialogContext) {
+                  return AlertDialog(
+                    title: const Text('Delete Event'),
+                    content: const Text(
+                      'Are you sure you want to delete this event?',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(dialogContext, false);
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(dialogContext, true);
+                        },
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(color: AppColors.errorColor),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              if (confirmed != true) return;
+
+              final eventId = eventModel.id;
+
+              if (eventId == null || eventId.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Cannot delete event: missing event ID'),
+                  ),
+                );
+                return;
+              }
+
+              try {
+                await EventsService.deleteEvent(eventId);
+
+                if (!context.mounted) return;
+
+                Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+              } catch (e) {
+                if (!context.mounted) return;
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Failed to delete event: $e')),
+                );
+              }
+            },
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext, false);
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext, true);
-              },
-              child: Text(
-                'Delete',
-                style: TextStyle(
-                  color: AppColors.errorColor,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (confirmed != true) return;
-
-    final eventId = eventModel.id;
-
-    if (eventId == null || eventId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cannot delete event: missing event ID'),
-        ),
-      );
-      return;
-    }
-
-    try {
-      await EventsService.deleteEvent(eventId);
-
-      if (!context.mounted) return;
-
-      // Return to the previous screen
-      Navigator.pop(context, true);
-    } catch (e) {
-      if (!context.mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to delete event: $e'),
-        ),
-      );
-    }
-  },
-),
         ],
       ),
       body: Form(

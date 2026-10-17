@@ -33,7 +33,7 @@ class FirebaseAuthService {
             password: user.password!,
           );
       user.id = credential.user?.uid;
-      
+      await credential.user!.updateDisplayName(user.name);
       await _createUser(user);
     } on FirebaseAuthException catch (e) {
       String errorMessage = _getFriendlyMessage(e.code);
@@ -130,5 +130,13 @@ class FirebaseAuthService {
       }
       rethrow;
     }
+  }
+
+  static Future<void> logout() async {
+    // Sign out from Firebase
+    await FirebaseAuth.instance.signOut();
+
+    // Sign out from Google too, if Google Sign-In is used
+    // await GoogleSignIn.instance.signOut();
   }
 }

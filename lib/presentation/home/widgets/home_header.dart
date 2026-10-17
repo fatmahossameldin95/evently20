@@ -4,6 +4,7 @@ import 'package:evently/common/enums/categories_enum.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/presentation/home/widgets/category_card.dart';
 import 'package:evently/common/theme/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,10 @@ class HomeHeader extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size(AppBar().preferredSize.width, 174);
 }
+final User? user = FirebaseAuth.instance.currentUser;
 
+
+final String name = user?.displayName ?? 'Name';
 class _HomeHeaderState extends State<HomeHeader> {
   CategoriesEnum? selectedCategory;
   @override
@@ -45,7 +49,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       style: theme.textTheme.labelSmall!.copyWith(color: Theme.of(context).hintColor),
                     ),
                     Text(
-                      "name",
+                      name,
                       style: theme.textTheme.displayLarge!.copyWith(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 24,

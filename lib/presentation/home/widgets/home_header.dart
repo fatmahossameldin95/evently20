@@ -17,14 +17,13 @@ class HomeHeader extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size(AppBar().preferredSize.width, 174);
 }
-final User? user = FirebaseAuth.instance.currentUser;
 
-
-final String name = user?.displayName ?? 'Name';
 class _HomeHeaderState extends State<HomeHeader> {
   CategoriesEnum? selectedCategory;
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String name = user?.displayName ?? 'Name';
     ThemeData theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.all(16),
@@ -46,7 +45,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.welcome_back,
-                      style: theme.textTheme.labelSmall!.copyWith(color: Theme.of(context).hintColor),
+                      style: theme.textTheme.labelSmall!.copyWith(
+                        color: Theme.of(context).hintColor,
+                      ),
                     ),
                     Text(
                       name,
@@ -55,7 +56,6 @@ class _HomeHeaderState extends State<HomeHeader> {
                         fontSize: 24,
                       ),
                     ),
-                   
                   ],
                 ),
                 Spacer(),
@@ -86,11 +86,15 @@ class _HomeHeaderState extends State<HomeHeader> {
                     style: FilledButton.styleFrom(
                       backgroundColor: AppColors.lightBgColor,
                       padding: EdgeInsets.all(0),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Text(
                       context.watch<AppProvider>().local,
-                      style: AppTextStyles.styleS14W700(color: Theme.of(context).colorScheme.primary),
+                      style: AppTextStyles.styleS14W700(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ),
                 ),

@@ -15,15 +15,15 @@ class ProfileTab extends StatefulWidget {
   @override
   State<ProfileTab> createState() => _ProfileTabState();
 }
-
-final User? user = FirebaseAuth.instance.currentUser;
-
-final String email = user?.email ?? 'name@email.com';
-final String name = user?.displayName ?? 'Name';
+// await FirebaseAuth.instance.currentUser?.reload();
 
 class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    final String email = user?.email ?? 'name@email.com';
+    final String name = user?.displayName ?? 'Name';
     bool status = context.watch<AppProvider>().themeMode == ThemeMode.light
         ? false
         : true;
@@ -136,11 +136,12 @@ class _ProfileTabState extends State<ProfileTab> {
                     onTap: () async {
                       await FirebaseAuthService.logout();
 
-                      if (context.mounted){
-
-                      Navigator.of(context).pushReplacementNamed(
-                        LoginScreen.routeName
-                      );}
+                      if (context.mounted) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          LoginScreen.routeName,
+                          (route) => false,
+                        );
+                      }
                     },
                     child: Icon(Icons.logout, color: AppColors.errorColor),
                   ),

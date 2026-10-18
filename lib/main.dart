@@ -23,7 +23,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (!kIsWeb) {
     await GoogleSignIn.instance.initialize();
+    
   }
+  
   runApp(const MyApp());
 }
 

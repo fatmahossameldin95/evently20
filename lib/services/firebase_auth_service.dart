@@ -84,6 +84,8 @@ class FirebaseAuthService {
       if (kIsWeb) {
         final GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
+        googleProvider.setCustomParameters({'prompt': 'select_account'});
+
         return await FirebaseAuth.instance.signInWithPopup(googleProvider);
       }
 
